@@ -14,26 +14,26 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
 
-"""
-Handle the '/start' command by sending a welcome message to the user.
-Parameters:
-    - message (types.Message): The message object received from the user.
-"""
 @dp.message_handler(commands='start')
 async def start(message: types.Message):
+    """
+    Handle the '/start' command by sending a welcome message to the user.
+    Parameters:
+        - message (types.Message): The message object received from the user.
+    """
     user_name = message.from_user.first_name
     await message.answer(f"Привет, {user_name}!")
 
 
-"""
-Handle messages containing JSON data. Extract relevant information, call the
-'get_aggregated_data' function, and send the result as a JSON response.
-
-Parameters:
-- message (types.Message): The message object received from the user.
-"""
 @dp.message_handler()
 async def get_json(message: types.Message):
+    """
+    Handle messages containing JSON data. Extract relevant information, call the
+    'get_aggregated_data' function, and send the result as a JSON response.
+
+    Parameters:
+        - message (types.Message): The message object received from the user.
+    """
     try:
         received_json = json.loads(message.text)
         dt_from = datetime.strptime(received_json['dt_from'], '%Y-%m-%dT%H:%M:%S')
